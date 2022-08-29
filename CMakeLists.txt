@@ -3,4 +3,8 @@ project(Lab1 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_library(Lab1 library.c mymalloc.h mymalloc.c)
+add_library(Lab1 include/mymalloc.h src/mymalloc.c)
+
+target_include_directories(Lab1
+        PUBLIC include
+        PUBLIC src)

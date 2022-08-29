@@ -49,17 +49,11 @@ cmake_ninja_workdir = /OperatingSystems/Lab1/cmake-build-debug/
 
 build cmake_object_order_depends_target_Lab1: phony || CMakeFiles/Lab1.dir
 
-build CMakeFiles/Lab1.dir/library.c.o: C_COMPILER__Lab1_Debug /OperatingSystems/Lab1/library.c || cmake_object_order_depends_target_Lab1
-  DEP_FILE = CMakeFiles/Lab1.dir/library.c.o.d
+build CMakeFiles/Lab1.dir/src/mymalloc.c.o: C_COMPILER__Lab1_Debug /OperatingSystems/Lab1/src/mymalloc.c || cmake_object_order_depends_target_Lab1
+  DEP_FILE = CMakeFiles/Lab1.dir/src/mymalloc.c.o.d
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/Lab1.dir
-  OBJECT_FILE_DIR = CMakeFiles/Lab1.dir
-
-build CMakeFiles/Lab1.dir/mymalloc.c.o: C_COMPILER__Lab1_Debug /OperatingSystems/Lab1/mymalloc.c || cmake_object_order_depends_target_Lab1
-  DEP_FILE = CMakeFiles/Lab1.dir/mymalloc.c.o.d
-  FLAGS = -g -std=gnu99
-  OBJECT_DIR = CMakeFiles/Lab1.dir
-  OBJECT_FILE_DIR = CMakeFiles/Lab1.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lab1.dir/src
 
 
 # =============================================================================
@@ -69,7 +63,7 @@ build CMakeFiles/Lab1.dir/mymalloc.c.o: C_COMPILER__Lab1_Debug /OperatingSystems
 #############################################
 # Link the static library libLab1.a
 
-build libLab1.a: C_STATIC_LIBRARY_LINKER__Lab1_Debug CMakeFiles/Lab1.dir/library.c.o CMakeFiles/Lab1.dir/mymalloc.c.o
+build libLab1.a: C_STATIC_LIBRARY_LINKER__Lab1_Debug CMakeFiles/Lab1.dir/src/mymalloc.c.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/Lab1.dir
   POST_BUILD = :
