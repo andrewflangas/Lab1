@@ -12,11 +12,9 @@ typedef struct header_t
 
 typedef struct node_t
 {
-    int size;
+    size_t size;
     struct node_t *next;
 } node_t;
-
-void InitializeFreeList();
 
 void Free(void *ptr);
 
