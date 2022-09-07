@@ -20,4 +20,6 @@ void Free(void *ptr);
 
 void *Malloc(size_t size);
 
+//void *Realloc(void *ptr, size_t size);
+
 #endif //LAB1_LIBRARY_H

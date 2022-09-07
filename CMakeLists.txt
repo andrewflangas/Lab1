@@ -3,7 +3,9 @@ project(Lab1 C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_library(Lab1 include/mymalloc.h src/mymalloc.c)
+set(SOURCES src/mymalloc.c src/main.c include/mymalloc.h src/main.c)
+
+add_executable(Lab1 ${SOURCES})
 
 target_include_directories(Lab1
         PUBLIC include
