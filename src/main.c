@@ -2,16 +2,39 @@
 
 int main()
 {
-    float* a = Malloc(sizeof (float));
-    float* b = Malloc(sizeof (float));
-    float* c = Malloc(sizeof (float));
+    int *ptr;
+    int a, b;
 
-    printf("Please enter two numbers\n");
-    scanf("%f %f", b ,c);
-    *a = *b + *c;
-    printf("%f = %f + %f\n", *a, *b, *c);
-    Free(c);
-    Free(b);
-    Free(a);
-    printf("a = %f \n", *a);
+    printf("Please enter number of elements: \n");
+    scanf("%d",&a);
+
+    printf("Entered number of elements %d \n", a);
+
+    ptr = (int*) Malloc(a * sizeof(int));
+    if(ptr == NULL)
+    {
+        printf("Memory not allocated.\n");
+        exit(0);
+    }
+    else
+    {
+        printf("Memory allocated successfully\n");
+        for(b = 0; b < a; ++b)
+        {
+            ptr[b] = b + 1;
+        }
+        printf("The elements of the array are: \n");
+        for(b = 0; b < a; ++b)
+        {
+            printf("%d \n", ptr[b]);
+        }
+
+        printf("Memory is free!\n");
+        Free(&ptr);
+        for(b = 0; b < a; ++b)
+        {
+            printf("%d \n", ptr[b]);
+        }
+    }
+    return 0;
 }
