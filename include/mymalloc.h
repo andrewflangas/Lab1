@@ -5,12 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <assert.h>
 
-typedef struct header_t
-{
-    int size;
-    int magic;
-} header_t;
+//typedef struct header_t
+//{
+//    int size;
+//    int magic;
+//} header_t;
 
 typedef struct node_t
 {

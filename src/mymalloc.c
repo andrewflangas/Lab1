@@ -6,15 +6,23 @@ bool flag = false;
 
 void Free(void *ptr)
 {
-    header_t *hptr = (header_t *) ptr -1;
-    if (hptr != NULL)
+    node_t *hptr = (node_t *) ptr -1;
+    hptr->size = sizeof(*ptr)-1;
+    if(ptr != NULL)
     {
-        munmap(hptr, sizeof(hptr->size));
+        munmap(hptr, (hptr->size-1));
+        hptr->next = (void*)hptr->size + 1;
     }
+    if(hptr->next == NULL)
+    {
+        *hptr = *hptr->next;
+    }
+    flag = false;
 }
 
 void *First_Fit(size_t size, node_t *block)
 {
+    printf("FLAG2!!! \n");
     node_t *allocation = block;
     for(int i=0; i<block->size; ++i)
     {
@@ -48,7 +56,6 @@ void *Malloc(size_t size)
     head = First_Fit(size,mem_blk);
     head->size = prev_size - (size-8);
     head->next = NULL;
-
     return (void*) (&head[1]);
 }
 
