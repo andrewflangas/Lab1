@@ -3,7 +3,8 @@
 int main()
 {
     int *ptr;
-    int a, b;
+    int *ptr1;
+    int a, b, c, d;
 
     printf("Please enter number of elements: \n");
     scanf("%d",&a);
@@ -36,9 +37,6 @@ int main()
             printf("%d \n", ptr[b]);
         }
     }
-
-    int *ptr1;
-    int c, d;
 
     printf("Please enter number of elements: \n");
     scanf("%d",&c);
