@@ -1,4 +1,4 @@
-#include "mymalloc.h"
+#include "../include/mymalloc.h"
 
 //global variables
 #define MEMORY_SIZE 1000
