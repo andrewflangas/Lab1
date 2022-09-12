@@ -1,18 +1,22 @@
 #include "mymalloc.h"
 
 //global variables
-#define MEMORY_SIZE 4088
+#define MEMORY_SIZE 1000
 bool flag = false;
 
 void Free(void *ptr)
 {
     node_t *hptr = (node_t *) ptr -1;
-    hptr->size = sizeof(*ptr)-1;
-    if(ptr != NULL)
+    //printf("size!!!%zu \n", sizeof(ptr));
+    hptr->size = sizeof(ptr)-8;
+    if(ptr == NULL)
     {
-        munmap(hptr, (hptr->size-1));
-        hptr->next = (void*)hptr->size + 1;
+        return;
     }
+
+    munmap(hptr, sizeof(*hptr));
+    hptr->next = (void*)hptr->size + 1;
+
     if(hptr->next == NULL)
     {
         *hptr = *hptr->next;
@@ -22,8 +26,8 @@ void Free(void *ptr)
 
 void *First_Fit(size_t size, node_t *block)
 {
-    printf("FLAG2!!! \n");
     node_t *allocation = block;
+
     for(int i=0; i<block->size; ++i)
     {
         for(int j=0; j<size; ++j)
@@ -36,6 +40,7 @@ void *First_Fit(size_t size, node_t *block)
             }
         }
     }
+
     return (void*) (&allocation[1]);
 }
 
@@ -53,9 +58,12 @@ void *Malloc(size_t size)
     }
 
     prev_size = mem_blk->size;
+    //printf("size!!!! %zu \n", prev_size);
     head = First_Fit(size,mem_blk);
     head->size = prev_size - (size-8);
+    //printf("size2!!!! %zu \n", head->size);
     head->next = NULL;
+
     return (void*) (&head[1]);
 }
 
