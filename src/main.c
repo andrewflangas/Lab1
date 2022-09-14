@@ -43,7 +43,7 @@ int main()
 
     printf("Entered number of elements %d \n", c);
 
-    ptr = (int*) Malloc(c * sizeof(int));
+    ptr1 = (int*) Malloc(c * sizeof(int));
     if(ptr1 == NULL)
     {
         printf("Memory not allocated.\n");
