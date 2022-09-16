@@ -3,19 +3,26 @@
 //global variables
 #define MEMORY_SIZE 4088
 bool flag = false;
+node_t *mem_blk;
+node_t *allocation;
 
 void Free(void *ptr)
 {
-    node_t *hptr = (node_t *) ptr -1;
-    hptr->size = sizeof(ptr)-8;
+    node_t *hptr = (void *) ptr - sizeof(node_t);
+    size_t free = hptr->size*4 + sizeof(*hptr);
+    hptr->size = sizeof(ptr) - 8;
+    printf("sizeee!!! %zu \n", free);
 
-    if(ptr == NULL)
+    while(allocation != NULL)
     {
-        return;
+        if(free == allocation->size)
+        {
+            printf("made it!!! \n");
+            munmap(hptr, sizeof(*hptr));
+            break;
+        }
+        allocation = allocation->next;
     }
-
-    munmap(hptr, hptr->size);
-    hptr->next = (void*)hptr->size + 1;
 
     if(hptr->next == NULL)
     {
@@ -27,42 +34,39 @@ void Free(void *ptr)
 
 void *First_Fit(size_t size, node_t *block)
 {
-    node_t *allocation = block;
-
-    for(int i=0; i<size; ++i)
+    while(block != NULL)
     {
-        for(int j=0; j<block->size; ++j)
+        if(block->size >= size)
         {
-            if(block[j].size >= size)
-            {
-                block[i].size -= size;
-                allocation[i] = block[j];
-                break;
-            }
+            allocation = (void*)((node_t*)block + size);
+            allocation->size = sizeof(*block) + size;
+            allocation->next = mem_blk;
+            break;
         }
+        block = block->next;
     }
-
+    printf("size!!!! %zu \n", allocation->size);
     return (void*) (&allocation[1]);
 }
 
 void *Malloc(size_t size)
 {
     node_t *head;
-    node_t *mem_blk;
 
     if(!flag)
     {
         mem_blk = mmap(NULL, MEMORY_SIZE, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
         mem_blk->size = MEMORY_SIZE - sizeof(node_t);
-        mem_blk->next = (void*)mem_blk->size + 1;
+        mem_blk->next = NULL;
         flag = true;
 
     }
 
     head = First_Fit(size,mem_blk);
+    head->size = mem_blk->size - size;
     head->next = NULL;
-    mem_blk->size = size + sizeof(node_t);
-    mem_blk->next = head;
+    printf("size!!!! %zu \n", head->size);
+    mem_blk = head;
 
     return (void*) (&head[1]);
 }
