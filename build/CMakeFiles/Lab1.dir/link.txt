@@ -1,1 +1,0 @@
-/usr/bin/cc -g CMakeFiles/Lab1.dir/src/mymalloc.c.o CMakeFiles/Lab1.dir/src/main.c.o -o Lab1 
