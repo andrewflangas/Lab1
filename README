@@ -1,0 +1,5 @@
+In the Lab1 directory run:
+$make
+This will build the main program and libraries, the main program is called MyProgram.
+Execute the program by running:
+./MyProgram
