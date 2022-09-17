@@ -28,13 +28,11 @@ void Free(void *ptr)
     node_t *hptr = (void *) ptr - sizeof(node_t);
     size_t free = hptr->size*4 + sizeof(*hptr);
     hptr->size = sizeof(ptr) - 8;
-    printf("sizeee!!! %zu \n", free);
 
     while(allocation != NULL)
     {
         if(free == allocation->size)
         {
-            printf("made it!!! \n");
             munmap(hptr, sizeof(*hptr));
             break;
         }
